@@ -7,3 +7,10 @@
   - In "Projectiles": laser rotation and direction (depends on player); Grenade physics, grenade direction (depends on player)
   - In "Objects": Box and Bed are StaticBodys2D, so them work as barriers basically. Gate has the Area2D feature mentioned before.
   - In Drone: not implemented yet; Previusly was a simple CharacterBody2D that only moves to left.
+
+# 01/08/2026
+- Created house with interior tilemap
+- Added "SteamVent", which produce particles of smoke
+- Added particles to laser, when shoot
+- Worked with light
+- Added light occluders to some objects and the player
