@@ -1,21 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://k74m77hbeb2d"]
+[gd_scene load_steps=11 format=3 uid="uid://k74m77hbeb2d"]
 
 [ext_resource type="Texture2D" uid="uid://bi631fvh01s44" path="res://graphics/player/player.png" id="1_dovo2"]
 [ext_resource type="Script" uid="uid://yokag32s8a10" path="res://scenes/player/player.gd" id="1_gmlin"]
+[ext_resource type="Texture2D" uid="uid://dyw6dwvc4lcyd" path="res://graphics/decals/white.png" id="3_gmlin"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dovo2"]
 radius = 61.294373
 
+[sub_resource type="Gradient" id="Gradient_lvxji"]
+colors = PackedColorArray(0.56078434, 0.7058824, 1, 1, 1, 1, 1, 0.09411765)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p47bc"]
+gradient = SubResource("Gradient_lvxji")
+
+[sub_resource type="Curve" id="Curve_75vfm"]
+_limits = [0.0, 0.98402965, 0.021538466, 1.0]
+_data = [Vector2(0.021538466, 0), 0.0, 0.0, 0, 0, Vector2(0.1600284, 0.98402965), 0.0, 0.0, 0, 0, Vector2(0.86151, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0owmy"]
+width = 265
+curve = SubResource("Curve_75vfm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qek5x"]
+particle_flag_disable_z = true
+spread = 15.0
+initial_velocity_min = 750.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_0owmy")
+color = Color(0.5198012, 0.9960959, 1.0039686, 1)
+color_ramp = SubResource("GradientTexture1D_p47bc")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gmlin"]
+polygon = PackedVector2Array(47, 41, 63, 41, 66, 42, 61, 44, 59, 47, 60, 50, 62, 54, 69, 53, 94, 53, 97, 50, 97, 44, 101, 44, 109, 35, 113, 38, 123, 38, 124, 35, 121, 32, 125, 32, 127, 34, 130, 34, 134, 26, 134, 14, 130, 7, 128, 7, 124, 9, 124, 7, 125, 4, 124, 2, 113, 2, 109, -3, 98, -3, 91, -10, 87, -11, 78, -9, 64, -24, 62, -24, 62, -26, 55, -29, 49, -29, 45, -37, 46, -40, 38, -47, 37, -47, 35, -52, 29, -58, 25, -61, 19, -61, 13, -57, 11, -59, -1, -59, -10, -54, -11, -56, -16, -56, -25, -52, -26, -50, -26, -46, -29, -46, -31, -47, -36, -47, -44, -43, -51, -35, -52, -30, -58, -22, -58, 5, -56, 11, -50, 16, -50, 19, -52, 21, -48, 29, -42, 34, -40, 41, -36, 46, -35, 52, -26, 59, -16, 61, -5, 61, 3, 59, 25, 47, 36, 45, 44, 41)
+
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 31
 script = ExtResource("1_gmlin")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dovo2")
 
 [node name="PlayerImage" type="Sprite2D" parent="."]
 position = Vector2(38, 1)
 rotation = 1.5707964
 texture = ExtResource("1_dovo2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_dovo2")
 
 [node name="LaserTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -35,6 +65,18 @@ position = Vector2(128, 26)
 
 [node name="Marker2D3" type="Marker2D" parent="LaserStartPositions"]
 position = Vector2(128, 14)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(131, 20)
+emitting = false
+amount = 20
+texture = ExtResource("3_gmlin")
+lifetime = 0.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_qek5x")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_gmlin")
 
 [connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
 [connection signal="timeout" from="GrenadeTimer" to="." method="_on_grenade_timer_timeout"]

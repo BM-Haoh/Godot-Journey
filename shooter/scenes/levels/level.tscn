@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://2rjbkd6wrs5k"]
+[gd_scene load_steps=17 format=3 uid="uid://2rjbkd6wrs5k"]
 
 [ext_resource type="Script" uid="uid://cyl8os4e0cxua" path="res://scenes/levels/level.gd" id="1_b2cq8"]
 [ext_resource type="PackedScene" uid="uid://r86gyur27sym" path="res://scenes/objects/gate.tscn" id="2_b2cq8"]
@@ -8,9 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://k74m77hbeb2d" path="res://scenes/player/player.tscn" id="4_xb4v1"]
 [ext_resource type="Texture2D" uid="uid://cl0oghvy0fv56" path="res://graphics/decals/moss/moss_2.png" id="5_7pb6i"]
 [ext_resource type="Texture2D" uid="uid://bwyki2wwm2ril" path="res://graphics/decals/moss/moss_3.png" id="6_xfk5q"]
+[ext_resource type="PackedScene" uid="uid://b8jhnjgkdkgle" path="res://scenes/objects/steam_vent.tscn" id="7_8iyoh"]
 [ext_resource type="Texture2D" uid="uid://cq7oqhxds6nkr" path="res://graphics/decals/moss/moss_4.png" id="7_qogh7"]
 [ext_resource type="Texture2D" uid="uid://bgqfxogfsgswk" path="res://graphics/tilesets/soil.png" id="8_7pb6i"]
 [ext_resource type="Texture2D" uid="uid://c8etjj3bnjcp0" path="res://graphics/tilesets/outside_walls.png" id="8_rmjfq"]
+[ext_resource type="PackedScene" uid="uid://cie25ofrypv54" path="res://scenes/houses/house.tscn" id="10_xfk5q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7pb6i"]
 resource_name = "walls"
@@ -53,10 +55,10 @@ script = ExtResource("1_b2cq8")
 
 [node name="Soil" type="Sprite2D" parent="Ground"]
 texture_repeat = 2
-position = Vector2(654, 881)
+position = Vector2(612, 3752)
 texture = ExtResource("2_xb4v1")
 region_enabled = true
-region_rect = Rect2(-5950.149, -3968, 16000, 7249.208)
+region_rect = Rect2(-9350.97, -3968, 19400.82, 13108.691)
 
 [node name="Decoration" type="Sprite2D" parent="Ground"]
 modulate = Color(0.7176471, 0.7921569, 0.69411767, 1)
@@ -75,6 +77,9 @@ texture = ExtResource("5_7pb6i")
 position = Vector2(239, 2161)
 texture = ExtResource("6_xfk5q")
 
+[node name="SteamVent" parent="Ground" instance=ExtResource("7_8iyoh")]
+position = Vector2(29, 575)
+
 [node name="TileMap" type="TileMap" parent="Ground"]
 tile_set = SubResource("TileSet_xfk5q")
 format = 2
@@ -87,6 +92,10 @@ layer_1/tile_data = PackedInt32Array(-5, 65536, 0, -6, 65536, 0, -7, 65536, 0, -
 position = Vector2(4609, -18)
 rotation = -3.1415925
 texture = ExtResource("7_qogh7")
+
+[node name="House" parent="Ground" instance=ExtResource("10_xfk5q")]
+position = Vector2(-4300, 3636)
+rotation = -2.2026055
 
 [node name="Gate" parent="." instance=ExtResource("2_b2cq8")]
 position = Vector2(521, -459)
